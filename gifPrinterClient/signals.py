@@ -5,7 +5,7 @@ import ftplib
 
 @receiver(post_save, sender=Upload)
 def print_gif(sender, instance, **kwargs):
-    session = ftplib.FTP('192.168.2.234', 'anonymous', 'password')
+    session = ftplib.FTP('10.200.200.49', 'anonymous', 'password')
     #session.login()
     gif_path = 'media/'+str(instance.gif)
     gif_file = open(gif_path,'rb')
