@@ -5,3 +5,5 @@ __pycache__
 .app_configured
 */correct_playbook.yml
 *.retry
+id_rsa
+id_rsa.pub
