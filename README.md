@@ -14,7 +14,9 @@
 
 run the following commands
 
-   python3.6 manage.py makemigrations
-   14  python3.6 manage.py migrate
-   15  python3.6 runserver 0.0.0.0:8000
-   16  python3.6 manage.py runserver 0.0.0.0:8000
+```
+python3.6 manage.py makemigrations
+14  python3.6 manage.py migrate
+15  python3.6 runserver 0.0.0.0:8000
+16  python3.6 manage.py runserver 0.0.0.0:8000
+```
