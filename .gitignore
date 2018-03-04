@@ -2,3 +2,6 @@ VagrantFile
 *.sqlite3
 __pycache__
 .vagrant
+.app_configured
+*/correct_playbook.yml
+*.retry
