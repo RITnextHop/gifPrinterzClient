@@ -1,0 +1,27 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="container">
+            <div class="row justify-content-md-center">
+                <div class="col-md-5 align-self-center text-center bg-dark">
+                    <h1>GIF Printerz!</h1>
+                    <img src="media/Frame 5.1.png" width="100%">
+                    <h2>Upload a GIF</h2>
+                    <form class="form-inline" enctype="multipart/form-data" method='post'>
+                        {% csrf_token %}
+                        {{ form }}
+                        <button type="submit" class="btn btn-md btn-primary btn-block">Upload</button>
+                    </form>
+                </div>
+            </div>
+            <div>
+                <h2>Past Uploads</h2>
+                {% for upload in uploads %}
+                <img src="{{ upload.gif.url }}">
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+</html>
