@@ -1,0 +1,62 @@
+---
+
+- hosts: prod
+  become: true
+  vars:
+    #define your vars: here
+    web_root: /usr/share/nginx/html/gifPrinterzClient
+
+  tasks:
+    # put your tasks here #
+
+    # install dependecies #
+
+
+    # --------------------- #
+
+    - name: yup...
+      selinux:
+        state: disabled
+
+    - name: copy nginx template
+      template:
+        src: nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+
+    - name: copy service file for gunicorn
+      template:
+        src: gunicorn.service.j2
+        dest: /etc/systemd/system/gunicorn.service
+      notify: gunicorn_service
+
+    - name: check if script has been loaded
+      stat:
+        path: "{{ web_root }}/.app_configured"
+      register: app_loaded_file
+
+    - name: copy django config script
+      template:
+        src: configure_app.sh.j2
+        dest: "{{ web_root }}/configure_app.sh"
+        mode: 0755
+      when: not app_loaded_file.stat.exists
+      notify: load_django_app
+
+    - name: start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+
+  handlers:
+    - name: gunicorn_service
+      service:
+        name: gunicorn
+        state: restarted
+        enabled: yes
+        daemon_reload: yes
+
+    - name: load_django_app
+      command: ./configure_app.sh
+      args:
+        chdir: "{{ web_root }}"
